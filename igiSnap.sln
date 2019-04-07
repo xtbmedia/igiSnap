@@ -5,6 +5,16 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "igiSnap", "igiSnap\igiSnap.csproj", "{E9A3F9E7-19A6-4271-AD46-559F1C4B85F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "igiSnap.Support", "igiSnap.Interfaces\igiSnap.Support.csproj", "{98CD549B-C282-4639-9573-5B2989B92CDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "igiSnap.GamePlay", "igiSnap.GamePlay\igiSnap.GamePlay.csproj", "{85BDBFA3-A486-4AD2-BFD4-3ED05379D272}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementation", "Implementation", "{D6B6C843-C224-4C01-873B-A0CE88D1DC4C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6449D642-8B5E-4DA2-B18F-7EFB74440A67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "igiSnap.GamePlay.Tests", "igiSnap.GamePlay.Tests\igiSnap.GamePlay.Tests.csproj", "{284C86CD-49F3-45E6-AC03-548574623664}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +25,27 @@ Global
 		{E9A3F9E7-19A6-4271-AD46-559F1C4B85F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9A3F9E7-19A6-4271-AD46-559F1C4B85F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9A3F9E7-19A6-4271-AD46-559F1C4B85F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98CD549B-C282-4639-9573-5B2989B92CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98CD549B-C282-4639-9573-5B2989B92CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98CD549B-C282-4639-9573-5B2989B92CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98CD549B-C282-4639-9573-5B2989B92CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85BDBFA3-A486-4AD2-BFD4-3ED05379D272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85BDBFA3-A486-4AD2-BFD4-3ED05379D272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85BDBFA3-A486-4AD2-BFD4-3ED05379D272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85BDBFA3-A486-4AD2-BFD4-3ED05379D272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{284C86CD-49F3-45E6-AC03-548574623664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{284C86CD-49F3-45E6-AC03-548574623664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{284C86CD-49F3-45E6-AC03-548574623664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{284C86CD-49F3-45E6-AC03-548574623664}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E9A3F9E7-19A6-4271-AD46-559F1C4B85F8} = {D6B6C843-C224-4C01-873B-A0CE88D1DC4C}
+		{98CD549B-C282-4639-9573-5B2989B92CDD} = {D6B6C843-C224-4C01-873B-A0CE88D1DC4C}
+		{85BDBFA3-A486-4AD2-BFD4-3ED05379D272} = {D6B6C843-C224-4C01-873B-A0CE88D1DC4C}
+		{284C86CD-49F3-45E6-AC03-548574623664} = {6449D642-8B5E-4DA2-B18F-7EFB74440A67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F276A8C3-4151-40E9-A267-2CD649023764}
