@@ -13,17 +13,6 @@ namespace igiSnap.GamePlay
 
         public bool IsEmpty => !cards.Any();
 
-        public bool HasSnapCondition
-        {
-            get
-            {
-                var check = GetAll();
-                var top = check.First();
-                var next = check.Skip(1).Take(1).First();
-                return top.Rank == next.Rank;
-            }
-        }
-
         public SnapCentralPile()
         {
             cards = new Stack<ICard>();
@@ -42,6 +31,15 @@ namespace igiSnap.GamePlay
         public ICard Take()
         {
             return cards.Pop();
+        }
+
+        public IEnumerable<ICard> PeekCardsForTest()
+        {
+            var result = cards.Take(2).ToList();
+            if (result.Count() < 2)
+                return result.Take(0).ToList();
+
+            return result;
         }
 
         public int Count => cards?.Count() ?? 0;

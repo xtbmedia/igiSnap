@@ -8,19 +8,19 @@ namespace igiSnap.GamePlay
 {
     public class SnapHand : IHand
     {
-        private Stack<ICard> cards;
+        private Queue<ICard> cards;
 
         public int Count => cards.Count();
         public bool IsEmpty => !cards.Any();
 
         public SnapHand()
         {
-            cards = new Stack<ICard>();
+            cards = new Queue<ICard>();
         }
 
         public void Add(ICard card)
         {
-            cards.Push(card);
+            cards.Enqueue(card);
         }
 
         public ICard Peek()
@@ -30,7 +30,7 @@ namespace igiSnap.GamePlay
 
         public ICard Take()
         {
-            return cards.Pop();
+            return cards.Dequeue();
         }
 
         public IEnumerable<ICard> GetAll()

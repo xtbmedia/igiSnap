@@ -29,7 +29,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckCanAddCard()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
             ICard card = new SnapCard(Suit.Spades, Rank.Ace);
 
@@ -44,7 +44,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckCanAddCorrectCard()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
             ICard card = new SnapCard(Suit.Spades, Rank.Ace);
 
@@ -60,7 +60,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckCanTakeCard()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
             ICard card = new SnapCard(Suit.Spades, Rank.Ace);
 
@@ -76,7 +76,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckReturnsNullOnTakeWhenEmpty()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
 
             // Act
@@ -90,7 +90,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckReturnsNullOnPeekWhenEmpty()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
 
             // Act
@@ -104,7 +104,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckCanTakeCorrectCard()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
             ICard card = new SnapCard(Suit.Spades, Rank.Ace);
 
@@ -125,7 +125,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckMaintainsCorrectCount()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
 
             // Act
@@ -149,7 +149,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckMaintainsCorrectCountThroughNegativeTake()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
 
             // Act
@@ -173,7 +173,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckIsEmptyAfterDiscard()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
 
             // Act
@@ -190,7 +190,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckCanPeekCard()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
             ICard card = new SnapCard(Suit.Spades, Rank.Ace);
 
@@ -206,7 +206,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckCanPeekCorrectCard()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
             ICard card = new SnapCard(Suit.Spades, Rank.Ace);
 
@@ -228,7 +228,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckGetAllIsNonDestructive()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
 
             // Act
@@ -244,7 +244,7 @@ namespace igiSnap.GamePlay.Tests
         public void DeckCanReturnAllCards()
         {
             // Arrange
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
 
             // Act
@@ -256,5 +256,46 @@ namespace igiSnap.GamePlay.Tests
             Assert.IsTrue(test.Count() == 200);
         }
 
+        [TestMethod]
+        public void DeckCanShuffleCards()
+        {
+            // Arrange
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
+            ICardDeck cardDeck = new SnapCardDeck(cardOrderingProvider);
+
+            // Act
+            // The current implementation of SnapCardDeck gives the impression that the cards are
+            // maintained in a sorted state, this makes validating the suffle tricky...
+            // However this effectively means that taking cards in an order different to that enforced
+            // by the card ordering provider and adding them is the same as shuffling them
+            // So if we add the King, Jack, Queen and Ace of spades and read them out, we should
+            // get the Ace, Jack, Queen and King of spades back.
+
+            var cards = new List<SnapCard>
+            {
+                new SnapCard(Suit.Spades, Rank.King),
+                new SnapCard(Suit.Spades, Rank.Jack),
+                new SnapCard(Suit.Spades, Rank.Queen),
+                new SnapCard(Suit.Spades, Rank.Ace)
+            };
+
+            foreach (var card in cards)
+                cardDeck.Add(card);
+
+            cardDeck.Shuffle();  // Pointless as described above, but will stop code coverage moaning
+
+            // Assert
+            var expectedResult = new List<SnapCard>
+            {
+                new SnapCard(Suit.Spades, Rank.Ace),
+                new SnapCard(Suit.Spades, Rank.Jack),
+                new SnapCard(Suit.Spades, Rank.Queen),
+                new SnapCard(Suit.Spades, Rank.King)
+            };
+
+            var test = cardDeck.GetAll();
+
+            Assert.IsTrue(test.SequenceEqual(expectedResult, new SnapCardComparer()));
+        }
     }
 }

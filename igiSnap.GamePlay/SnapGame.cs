@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using igiSnap.Support.Enumerations;
 using igiSnap.Support.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace igiSnap.GamePlay
 
             dealer.Deal(deck, players);
 
-            while (!HasWinner)
+            while (!HasWinner && players.Any(p => !p.Hand.IsEmpty))
             {
                 foreach (var player in players)
                 {
@@ -42,7 +43,7 @@ namespace igiSnap.GamePlay
                     var winner = (from p in players
                                   orderby p.Hand.Count descending
                                   select p)
-                                 .Single();
+                                 .First();
 
                     Winner = winner;
                 }
@@ -63,7 +64,7 @@ namespace igiSnap.GamePlay
             {
                 var player = snappers.First().Key;
                 transport.Transfer(centralPile, player.Hand);
-                DumpState("Snap", players, centralPile.GetAll());
+                DumpState($"Snap ({player.Name})", players, centralPile.GetAll());
             }
 
             async Task<bool> Timeout()
@@ -98,7 +99,35 @@ namespace igiSnap.GamePlay
         private void DumpStateLine(string label, IEnumerable<ICard> cards)
         {
             Console.Write(label);
-            Console.Write(string.Join(",", cards.Select(s => $"{s.Suit.ToString().First()}{(int)s.Rank:00}")));
+            Console.Write(string.Join(",", cards.Select(s => GetDisplayValue(s))));
+        }
+
+        private static string GetDisplayValue(ICard card)
+        {
+            var suitMap = new Dictionary<Suit, string>{
+                {Suit.Spades, "♠" },
+                {Suit.Diamonds, "♦" },
+                {Suit.Hearts, "♥" },
+                {Suit.Clubs, "♣" }
+            };
+
+            var rankMap = new Dictionary<Rank, string>{
+                {Rank.Ace, "A" },
+                {Rank.Two, "2" },
+                {Rank.Three, "3" },
+                {Rank.Four, "4" },
+                {Rank.Five, "5" },
+                {Rank.Six, "6" },
+                {Rank.Seven, "7" },
+                {Rank.Eight, "8" },
+                {Rank.Nine, "9" },
+                {Rank.Ten, "10" },
+                {Rank.Jack, "J" },
+                {Rank.Queen, "Q" },
+                {Rank.King, "K" },
+            };
+
+            return $"{suitMap[card.Suit]}{rankMap[card.Rank]}";
         }
     }
 }

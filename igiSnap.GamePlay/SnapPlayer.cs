@@ -1,6 +1,7 @@
 ﻿using igiSnap.Support.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,13 @@ namespace igiSnap.GamePlay
         public async Task<bool> CheckForMatchAsync(ICentralPile centralPile)
         {
             await Task.Delay(generator.Next(3000));
-            return centralPile.HasSnapCondition;
+            var cards = centralPile.PeekCardsForTest();
+            if (!cards.Any())
+                return false;
+
+            var condition = cards.First().Rank;
+
+            return cards.All(o => o.Rank == condition);
         }
 
         public bool TakeTurn(ICentralPile centralPile, ICardTransport transport)

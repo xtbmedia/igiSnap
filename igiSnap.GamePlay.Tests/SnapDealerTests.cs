@@ -22,7 +22,7 @@ namespace igiSnap.GamePlay.Tests
                 new SnapPlayer("Player 2", new SnapHand()),
             };
 
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             var deck = new SnapCardDeck(cardOrderingProvider);
 
             deck.Add(new SnapCard(Suit.Clubs, Rank.Ace));
@@ -47,7 +47,7 @@ namespace igiSnap.GamePlay.Tests
             var player2 = new SnapPlayer("Player 2", new SnapHand());
             var players = new List<SnapPlayer> { player1, player2, };
 
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             var deck = new SnapCardDeck(cardOrderingProvider);
 
             deck.Add(new SnapCard(Suit.Clubs, Rank.Ace));
@@ -72,7 +72,7 @@ namespace igiSnap.GamePlay.Tests
             var player2 = new SnapPlayer("Player 2", new SnapHand());
             var players = new List<SnapPlayer> { player1, player2, };
 
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             var deck = new SnapCardDeck(cardOrderingProvider);
 
             deck.Add(new SnapCard(Suit.Clubs, Rank.Ace));
@@ -96,7 +96,7 @@ namespace igiSnap.GamePlay.Tests
             var player2 = new SnapPlayer("Player 2", new SnapHand());
             var players = new List<SnapPlayer> { player1, player2, };
 
-            ICardOrderingProvider cardOrderingProvider = new SortedCardOrderingProvider();
+            ICardOrderingProvider cardOrderingProvider = new SuitMajorSortedCardOrderingProvider();
             var deck = new SnapCardDeck(cardOrderingProvider);
 
             deck.Add(new SnapCard(Suit.Clubs, Rank.Ace));

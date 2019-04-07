@@ -18,7 +18,7 @@ namespace igiSnap.GamePlay.Tests
 
             hand.Add(new SnapCard(Suit.Spades, Rank.Ace));
 
-            Assert.AreEqual(hand.Count, 1);
+            Assert.AreEqual(1, hand.Count);
         }
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace igiSnap.GamePlay.Tests
             for(var i = 0; i < ExpectedCount; i++)
                 hand.Add(new SnapCard(Suit.Spades, (Rank)(i + 1)));
 
-            Assert.AreEqual(hand.Count, 5);
+            Assert.AreEqual(5, hand.Count);
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace igiSnap.GamePlay.Tests
 
             hand.Add(card);
 
-            Assert.AreEqual(hand.Peek(), card);
+            Assert.AreEqual(card, hand.Peek());
         }
 
         [TestMethod]
@@ -57,10 +57,34 @@ namespace igiSnap.GamePlay.Tests
                 new SnapCard(Suit.Spades, Rank.Five)
             };
 
-            foreach(var card in cards)
+            foreach (var card in cards)
                 hand.Add(card);
 
-            Assert.IsTrue(hand.GetAll().Reverse().SequenceEqual(cards));
+            Assert.IsTrue(hand.GetAll().SequenceEqual(cards));
+        }
+
+        [TestMethod]
+        public void SnapHandPeekCorrectCard()
+        {
+            // Arrange
+            IHand hand = new SnapHand();
+            var cards = new List<SnapCard> {
+                new SnapCard(Suit.Spades, Rank.Ace),
+                new SnapCard(Suit.Spades, Rank.Two),
+                new SnapCard(Suit.Diamonds, Rank.Three),
+                new SnapCard(Suit.Spades, Rank.Four),
+                new SnapCard(Suit.Spades, Rank.Five)
+            };
+
+            foreach (var card in cards)
+                hand.Add(card);
+
+            // Act
+            var check = cards.First();
+            var test = hand.Peek();
+
+            Assert.AreEqual(check.Rank, test.Rank);
+            Assert.AreEqual(check.Suit, test.Suit);
         }
     }
 }

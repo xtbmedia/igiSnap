@@ -17,7 +17,7 @@ namespace igiSnap.GamePlay.Tests
             // Nothing to do
 
             // Assert
-            Assert.AreEqual(card.Rank, Rank.Ace);
+            Assert.AreEqual(Rank.Ace, card.Rank);
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace igiSnap.GamePlay.Tests
             // Nothing to do
 
             // Assert
-            Assert.AreEqual(card.Suit, Suit.Spades);
+            Assert.AreEqual(Suit.Spades, card.Suit);
         }
     }
 }

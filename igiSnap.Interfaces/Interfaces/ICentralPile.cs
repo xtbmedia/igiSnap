@@ -7,8 +7,7 @@ namespace igiSnap.Support.Interfaces
 {
     public interface ICentralPile : ICardCollection
     {
-        bool HasSnapCondition { get; }
-
         ICard Take();
+        IEnumerable<ICard> PeekCardsForTest();
     }
 }
