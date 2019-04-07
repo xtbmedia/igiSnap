@@ -13,6 +13,7 @@ namespace igiSnap
     {
         public static async Task<int> Main()
         {
+            Console.OutputEncoding = Encoding.UTF8;
             var container = GetConfiguredContainer();
             using (var scope = container.BeginLifetimeScope())
             {
@@ -24,7 +25,12 @@ namespace igiSnap
                 ICentralPile centralPile = CreateCentralPile(scope);
 
                 await game.Play(players, dealer, deck, transport, centralPile);
+
+                Console.WriteLine($"Winner: {(game.HasWinner ? game.Winner.Name : "The Game!!!")}");
+                Console.ReadKey();
                 return game.HasWinner ? 1 : 0;
+
+                
             }
         }
 
@@ -54,8 +60,10 @@ namespace igiSnap
         {
             var cards = from suit in (IEnumerable<igiSnap.Support.Enumerations.Suit>)Enum.GetValues(typeof(igiSnap.Support.Enumerations.Suit))
                         from rank in (IEnumerable<igiSnap.Support.Enumerations.Rank>)Enum.GetValues(typeof(igiSnap.Support.Enumerations.Rank))
-                        select scope.Resolve<ICard>(new NamedParameter("rank", rank),
-                        new NamedParameter("suit", suit));
+                        select scope.Resolve<ICard>(
+                            new NamedParameter("rank", rank),
+                            new NamedParameter("suit", suit)
+                        );
 
             var deck = scope.Resolve<ICardDeck>();
 
@@ -70,7 +78,10 @@ namespace igiSnap
             var builder = new Autofac.ContainerBuilder();
 
             builder.RegisterAssemblyTypes(typeof(SnapCard).Assembly)
-                .Where(t => t != typeof(SortedCardOrderingProvider))
+                .Where(t => !t.GetInterfaces().Any(i => i == typeof(ICardOrderingProvider)))
+                .AsImplementedInterfaces();
+
+            builder.RegisterType<ShuffleCardOrderingProvider>()
                 .AsImplementedInterfaces();
 
             return builder.Build();
