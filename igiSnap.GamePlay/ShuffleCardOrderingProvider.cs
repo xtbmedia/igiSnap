@@ -16,6 +16,9 @@ namespace igiSnap.GamePlay
 
         public int GetSortKey(ICard card)
         {
+            if (card == null)
+                return 0;
+
             return generator.Next();
         }
     }

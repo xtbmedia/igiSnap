@@ -6,7 +6,7 @@ namespace igiSnap.Support.Enumerations
 {
     public enum Suit
     {
-        Spades,
+        Spades = 1,
         Hearts,
         Diamonds,
         Clubs
